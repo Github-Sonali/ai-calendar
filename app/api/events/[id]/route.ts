@@ -3,15 +3,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '../../../lib/db';
 import Event from '../../../../models/Event';
 
-interface Params {
-  params: { id: string };
-}
-
 // GET single event
-export async function GET(_request: NextRequest, { params }: Params) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     await connectDB();
-    const event = await Event.findById(params.id);
+    const { id } = await params;
+    const event = await Event.findById(id);
 
     if (!event) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });
@@ -25,12 +25,16 @@ export async function GET(_request: NextRequest, { params }: Params) {
 }
 
 // PUT update event
-export async function PUT(request: NextRequest, { params }: Params) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     await connectDB();
+    const { id } = await params;
     const updates = await request.json();
 
-    const event = await Event.findByIdAndUpdate(params.id, updates, {
+    const event = await Event.findByIdAndUpdate(id, updates, {
       new: true,
       runValidators: true,
     });
@@ -47,11 +51,15 @@ export async function PUT(request: NextRequest, { params }: Params) {
 }
 
 // DELETE event
-export async function DELETE(_request: NextRequest, { params }: Params) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     await connectDB();
+    const { id } = await params;
 
-    const event = await Event.findByIdAndDelete(params.id);
+    const event = await Event.findByIdAndDelete(id);
 
     if (!event) {
       return NextResponse.json({ error: 'Event not found' }, { status: 404 });

@@ -1,8 +1,8 @@
 // app/api/events/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '../../lib/db';
-import Event from '../../../models/Event';
-import Notification from '../../../models/Notification';
+import Event from '../../../models/Event';  
+import Notification from '../../../models/Notification';  
 import { EventSchema } from '../../lib/types';
 import { format } from 'date-fns';
 
