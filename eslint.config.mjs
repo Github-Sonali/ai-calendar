@@ -10,8 +10,14 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // ✅ Extend Next.js + TypeScript recommended configs
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
   {
+    rules: {
+      // Allow console in development
+      "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    },
     ignores: [
       "node_modules/**",
       ".next/**",
@@ -22,4 +28,5 @@ const eslintConfig = [
   },
 ];
 
+// ✅ Assign to a variable before exporting (fixes eslintimport/no-anonymous-default-export)
 export default eslintConfig;

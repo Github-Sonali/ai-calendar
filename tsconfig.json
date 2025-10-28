@@ -15,36 +15,31 @@
     "jsx": "preserve",
     "incremental": true,
 
-    /* ✅ Next.js specific plugin */
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    /* ✅ Next.js plugin for automatic types */
+    "plugins": [{ "name": "next" }],
 
-    /* ✅ Path aliases (updated for your structure) */
+    /* ✅ Path aliases (match your folder structure) */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@/lib/*": ["./app/lib/*"],
-      "@/models/*": ["./app/models/*"],
-      "@/prompts/*": ["./app/prompts/*"],
-      "@/components/*": ["./app/components/*"]
+      "@/models/*": ["./models/*"],
+      "@/components/*": ["./components/*"],
+      "@/prompts/*": ["./app/prompts/*"]
     },
 
-    /* ✅ Optional strict improvements */
+    /* ✅ TypeScript strictness */
     "forceConsistentCasingInFileNames": true,
-    "strictNullChecks": true
-  },
+    "strictNullChecks": true,
 
-  /* ✅ Files included in compilation */
+    /* ✅ Type definitions */
+    "types": ["node", "next", "next/types/global"]
+  },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-
-  /* ✅ Exclude build and dependency folders */
   "exclude": ["node_modules", "dist", "build"]
 }
